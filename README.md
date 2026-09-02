@@ -1,0 +1,228 @@
+# Mini Mechanic Service API
+
+A RESTful backend API for a mechanic service platform built using **Django** and **Django REST Framework**.
+
+The API allows users to view mechanics, check their services, and create service requests for vehicle problems.
+
+## Technologies
+
+- Python
+- Django
+- Django REST Framework
+- SQLite
+- drf-spectacular
+- Swagger / OpenAPI
+
+## Features
+
+- Mechanic CRUD operations
+- Service Request CRUD operations
+- Mechanic-Service Request relationship
+- Phone number validation
+- Vehicle number validation
+- Service validation
+- Mechanic ID validation
+- Search mechanics by location
+- Filter mechanics by open/closed status
+- Sort mechanics by rating
+- Default service request status: `PENDING`
+- Automatic request creation timestamp
+- Django Admin
+- Swagger/OpenAPI documentation
+- Application logging
+- Automated API tests
+
+## Database Models
+
+### Mechanic
+
+- `id`
+- `name`
+- `phone`
+- `location`
+- `rating`
+- `is_open`
+- `services`
+
+### ServiceRequest
+
+- `id`
+- `customer_name`
+- `customer_phone`
+- `vehicle_number`
+- `mechanic_id`
+- `service`
+- `problem_description`
+- `status`
+- `created_at`
+
+`ServiceRequest` has a ForeignKey relationship with `Mechanic`.
+
+## API Endpoints
+
+### Mechanics
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/mechanics/` | List mechanics |
+| GET | `/api/mechanics/{id}/` | Get mechanic |
+| POST | `/api/mechanics/` | Create mechanic |
+| PUT | `/api/mechanics/{id}/` | Update mechanic |
+| PATCH | `/api/mechanics/{id}/` | Partially update |
+| DELETE | `/api/mechanics/{id}/` | Delete mechanic |
+
+### Service Requests
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/service-requests/` | List requests |
+| GET | `/api/service-requests/{id}/` | Get request |
+| POST | `/api/service-requests/` | Create request |
+| PUT | `/api/service-requests/{id}/` | Update request |
+| PATCH | `/api/service-requests/{id}/` | Partially update |
+| DELETE | `/api/service-requests/{id}/` | Delete request |
+
+## Search & Filtering
+
+Search by location:
+
+```text
+GET /api/mechanics/?location=Indore
+
+Filter by open status:
+
+GET /api/mechanics/?is_open=true
+
+Sort by rating:
+
+GET /api/mechanics/?sort=rating
+
+Filters can also be combined.
+
+Sample Request
+Create Mechanic
+
+POST /api/mechanics/
+
+{
+    "name": "Rahul Kumar",
+    "phone": "9876543210",
+    "location": "Indore",
+    "rating": 4.5,
+    "is_open": true,
+    "services": [
+        "Oil Change",
+        "Brake Repair",
+        "Engine Repair"
+    ]
+}
+Create Service Request
+
+POST /api/service-requests/
+
+{
+    "customer_name": "Amit Verma",
+    "customer_phone": "9123456789",
+    "vehicle_number": "MP09AB1234",
+    "mechanic_id": 2,
+    "service": "Oil Change",
+    "problem_description": "The car is making a loud noise from the engine."
+}
+
+The service request automatically receives:
+
+status: PENDING
+created_at: <server-generated timestamp>
+Validation
+
+The API handles:
+
+Invalid phone numbers
+Invalid vehicle numbers
+Invalid mechanic IDs
+Services not offered by the selected mechanic
+Missing required fields
+
+Invalid input returns 400 Bad Request with a meaningful error message.
+
+Swagger / OpenAPI
+
+Interactive API documentation is available at:
+
+http://127.0.0.1:8000/api/docs/
+
+OpenAPI schema:
+
+http://127.0.0.1:8000/api/schema/
+Django Admin
+
+Admin panel:
+
+http://127.0.0.1:8000/admin/
+
+Mechanics and Service Requests can be managed through the Django Admin panel.
+
+Testing
+
+Run the test suite:
+
+python manage.py test
+
+Current result:
+
+Found 7 test(s).
+Ran 7 tests
+OK
+
+The tests cover mechanics, filtering, sorting, service request creation, and validation.
+
+Logging
+
+The application logs important events such as:
+
+Mechanic creation, update and deletion
+Service request creation, update and deletion
+Filtering and sorting operations
+
+Logs are displayed in the development console.
+
+Setup
+1. Create virtual environment
+python -m venv venv
+2. Activate virtual environment
+
+Windows PowerShell:
+
+.\venv\Scripts\Activate.ps1
+3. Install dependencies
+pip install django djangorestframework drf-spectacular
+4. Apply migrations
+python manage.py migrate
+5. Run the server
+python manage.py runserver
+
+The API will be available at:
+
+http://127.0.0.1:8000/
+Project Structure
+mechanic_service_api/
+├── mechanic_service/
+├── mechanics/
+│   ├── migrations/
+│   ├── admin.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── db.sqlite3
+├── manage.py
+└── README.md
+Status
+
+Completed: REST APIs, database models, validation, filtering, testing, Swagger/OpenAPI, Django Admin, and logging.
+
+
+This is the version I'd actually submit. **Clean, professional, and not excessive.**
+
+One note: I intentionally didn't include a fake `created_at` timestamp in the sample response because the actual value is generated by your server. That's more professional.
