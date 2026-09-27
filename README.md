@@ -10,7 +10,7 @@ The API allows users to view mechanics, check their services, and create service
 - Django
 - Django REST Framework
 - SQLite
-- drf-spectacular
+- drf spectacular
 - Swagger / OpenAPI
 
 ## Features
