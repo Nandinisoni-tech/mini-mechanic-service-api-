@@ -2,7 +2,7 @@
 
 A RESTful backend API for a mechanic service platform built using **Django** and **Django REST Framework**.
 
-The API allows users to view mechanics, check their services, and create service requests for vehicle problems.
+The API allows users to view mechanics, check their services, and create service request for vehicle problems.
 
 ## Technologies
 
